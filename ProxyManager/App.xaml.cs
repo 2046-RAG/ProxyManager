@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using ProxyManager.Helpers;
@@ -16,9 +18,35 @@ public partial class App : Application
 
     public bool MinimizeToTray => _minimizeToTray;
 
+    public static void Log(string message)
+    {
+        try
+        {
+            File.AppendAllText(Path.Combine(AppContext.BaseDirectory, "debug.log"),
+                $"{DateTime.Now:HH:mm:ss.fff} {message}{Environment.NewLine}");
+        }
+        catch
+        {
+            // 日志失败不影响主流程
+        }
+    }
+
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
+        AppDomain.CurrentDomain.UnhandledException += (_, args) =>
+            Log("AppDomain.UnhandledException: " + args.ExceptionObject);
+        DispatcherUnhandledException += (_, args) =>
+        {
+            Log("DispatcherUnhandledException: " + args.Exception);
+            args.Handled = true;
+        };
+        PresentationTraceSources.DataBindingSource.Listeners.Add(
+            new TextWriterTraceListener(Path.Combine(AppContext.BaseDirectory, "binding.log")));
+        PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Error;
+
+        Log("OnStartup begin");
 
         _settingsService = new SettingsService();
         _themeManager = new ThemeManager(_settingsService);
@@ -34,6 +62,8 @@ public partial class App : Application
 
         // 初始化托盘图标
         InitializeTrayIcon();
+
+        Log("OnStartup end");
     }
 
     private void InitializeTrayIcon()

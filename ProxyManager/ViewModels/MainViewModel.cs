@@ -104,37 +104,49 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void AddCustomSoftware()
     {
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        try
         {
-            Title = "选择要添加的软件",
-            Filter = "可执行文件 (*.exe)|*.exe|所有文件 (*.*)|*.*"
-        };
+            App.Log("AddCustomSoftware called");
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Title = "选择要添加的软件",
+                Filter = "可执行文件 (*.exe)|*.exe|所有文件 (*.*)|*.*"
+            };
 
-        if (dialog.ShowDialog() != true) return;
+            App.Log("ShowDialog calling...");
+            var result = dialog.ShowDialog();
+            App.Log($"ShowDialog returned: {result}");
+            if (result != true) return;
 
-        var exePath = dialog.FileName;
-        var name = Path.GetFileNameWithoutExtension(exePath);
-        var (description, _, version) = PEHelper.GetFileInfo(exePath);
+            var exePath = dialog.FileName;
+            var name = Path.GetFileNameWithoutExtension(exePath);
+            var (description, _, version) = PEHelper.GetFileInfo(exePath);
 
-        CustomSoftware.Add(new SoftwareCardViewModel(new ScanResult
+            CustomSoftware.Add(new SoftwareCardViewModel(new ScanResult
+            {
+                Name = name,
+                ExePath = exePath,
+                Directory = Path.GetDirectoryName(exePath) ?? string.Empty,
+                Version = version,
+                LastModified = File.GetLastWriteTime(exePath),
+                Description = description,
+                IsMainExecutable = true
+            }, _launcher));
+
+            var settings = _settingsService.Load();
+            settings.CustomSoftware.Add(new CustomSoftware
+            {
+                Name = name,
+                ExePath = exePath,
+                Description = description
+            });
+            _settingsService.Save(settings);
+            App.Log($"Custom software added: {exePath}");
+        }
+        catch (Exception ex)
         {
-            Name = name,
-            ExePath = exePath,
-            Directory = Path.GetDirectoryName(exePath) ?? string.Empty,
-            Version = version,
-            LastModified = File.GetLastWriteTime(exePath),
-            Description = description,
-            IsMainExecutable = true
-        }, _launcher));
-
-        var settings = _settingsService.Load();
-        settings.CustomSoftware.Add(new CustomSoftware
-        {
-            Name = name,
-            ExePath = exePath,
-            Description = description
-        });
-        _settingsService.Save(settings);
+            App.Log("AddCustomSoftware EXCEPTION: " + ex);
+        }
     }
 
     public void SaveHiddenStates()
