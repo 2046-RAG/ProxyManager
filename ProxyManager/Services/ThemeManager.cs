@@ -29,7 +29,7 @@ public class ThemeManager : IThemeManager
         if (!ThemePaths.ContainsKey(themeName))
             return;
 
-        var app = Application.Current;
+        var app = System.Windows.Application.Current;
         if (app == null) return;
 
         var resourceDict = new ResourceDictionary
