@@ -18,8 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\SoftwareDatabase.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <!-- 嵌入程序集，保证单文件发布时仍可读取 -->
+    <EmbeddedResource Include="Resources\SoftwareDatabase.json" />
   </ItemGroup>
 </Project>

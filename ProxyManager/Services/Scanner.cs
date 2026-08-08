@@ -1,4 +1,5 @@
 using System.IO;
+using System.Reflection;
 using System.Text.Json;
 using ProxyManager.Helpers;
 using ProxyManager.Models;
@@ -16,12 +17,12 @@ public class Scanner : IScanner
 
     public List<SoftwareInfo> LoadSoftwareDatabase()
     {
-        var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "SoftwareDatabase.json");
-        if (!File.Exists(dbPath))
+        using var stream = typeof(Scanner).Assembly.GetManifestResourceStream("ProxyManager.Resources.SoftwareDatabase.json");
+        if (stream == null)
             return new List<SoftwareInfo>();
 
-        var json = File.ReadAllText(dbPath);
-        return JsonSerializer.Deserialize<List<SoftwareInfo>>(json) ?? new List<SoftwareInfo>();
+        using var reader = new StreamReader(stream);
+        return JsonSerializer.Deserialize<List<SoftwareInfo>>(reader.ReadToEnd()) ?? new List<SoftwareInfo>();
     }
 
     public async Task<List<ScanResult>> ScanAllAsync()
