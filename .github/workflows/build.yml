@@ -1,0 +1,36 @@
+name: 构建并发布
+
+on:
+  push:
+    tags:
+      - 'v*'  # 当推送 v 开头的标签时触发
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+
+    - name: 安装 .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: 还原依赖
+      run: dotnet restore ProxyManager/ProxyManager.csproj
+
+    - name: 编译项目
+      run: dotnet publish ProxyManager/ProxyManager.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o ./publish
+
+    - name: 创建 Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ./publish/ProxyManager.exe
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
