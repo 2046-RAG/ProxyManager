@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Win32;
 using ProxyManager.Helpers;
 using ProxyManager.Models;
 using ProxyManager.Services;
@@ -105,7 +104,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void AddCustomSoftware()
     {
-        var dialog = new OpenFileDialog
+        var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Title = "选择要添加的软件",
             Filter = "可执行文件 (*.exe)|*.exe|所有文件 (*.*)|*.*"
