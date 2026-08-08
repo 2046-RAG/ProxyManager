@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Clash Verge Rev",
+    "github_url": "https://github.com/clash-verge-rev/clash-verge-rev",
+    "download_url": "https://github.com/clash-verge-rev/clash-verge-rev/releases",
+    "latest_version": "1.6.6",
+    "update_date": "2024-01-15",
+    "typical_paths": ["%LOCALAPPDATA%\\clash-verge-rev"],
+    "exe_names": ["Clash Verge.exe", "clash-verge.exe"],
+    "description": "Clash GUI客户端 (Tauri)"
+  },
+  {
+    "name": "v2rayN",
+    "github_url": "https://github.com/2dust/v2rayN",
+    "download_url": "https://github.com/2dust/v2rayN/releases",
+    "latest_version": "6.23",
+    "update_date": "2024-01-10",
+    "typical_paths": ["%USERPROFILE%\\v2rayN"],
+    "exe_names": ["v2rayN.exe", "v2rayN-core.exe"],
+    "description": "V2Ray Windows GUI客户端"
+  },
+  {
+    "name": "Shadowsocks Windows",
+    "github_url": "https://github.com/shadowsocks/shadowsocks-windows",
+    "download_url": "https://github.com/shadowsocks/shadowsocks-windows/releases",
+    "latest_version": "4.1.6",
+    "update_date": "2023-06-20",
+    "typical_paths": ["%APPDATA%\\shadowsocks"],
+    "exe_names": ["Shadowsocks.exe", "ss-local.exe"],
+    "description": "Shadowsocks GUI客户端"
+  },
+  {
+    "name": "Hiddify",
+    "github_url": "https://github.com/hiddify/hiddify-app",
+    "download_url": "https://github.com/hiddify/hiddify-app/releases",
+    "latest_version": "2.0.5",
+    "update_date": "2024-01-12",
+    "typical_paths": ["%LOCALAPPDATA%\\Hiddify"],
+    "exe_names": ["Hiddify.exe"],
+    "description": "多协议代理客户端"
+  },
+  {
+    "name": "Nekoray",
+    "github_url": "https://github.com/MatsuriDayo/nekoray",
+    "download_url": "https://github.com/MatsuriDayo/nekoray/releases",
+    "latest_version": "3.26",
+    "update_date": "2024-01-08",
+    "typical_paths": ["%USERPROFILE%\\nekoray"],
+    "exe_names": ["nekoray.exe", "nekoray-core.exe"],
+    "description": "基于Qt的sing-box/xray GUI客户端"
+  },
+  {
+    "name": "mihomo (Clash Meta)",
+    "github_url": "https://github.com/MetaCubeX/mihomo",
+    "download_url": "https://github.com/MetaCubeX/mihomo/releases",
+    "latest_version": "1.18.0",
+    "update_date": "2024-01-14",
+    "typical_paths": ["%USERPROFILE%\\mihomo"],
+    "exe_names": ["mihomo.exe"],
+    "description": "Clash Meta内核"
+  },
+  {
+    "name": "ClashN",
+    "github_url": "https://github.com/2dust/ClashN",
+    "download_url": "https://github.com/2dust/ClashN/releases",
+    "latest_version": "3.16",
+    "update_date": "2024-01-05",
+    "typical_paths": ["%USERPROFILE%\\ClashN"],
+    "exe_names": ["ClashN.exe"],
+    "description": "Clash GUI客户端"
+  },
+  {
+    "name": "Qv2ray",
+    "github_url": "https://github.com/Qv2ray/Qv2ray",
+    "download_url": "https://github.com/Qv2ray/Qv2ray/releases",
+    "latest_version": "2.7.0",
+    "update_date": "2023-08-15",
+    "typical_paths": ["%LOCALAPPDATA%\\Qv2ray"],
+    "exe_names": ["qv2ray.exe"],
+    "description": "基于Qt的V2Ray客户端"
+  },
+  {
+    "name": "sing-box",
+    "github_url": "https://github.com/SagerNet/sing-box",
+    "download_url": "https://github.com/SagerNet/sing-box/releases",
+    "latest_version": "1.8.0",
+    "update_date": "2024-01-11",
+    "typical_paths": ["%USERPROFILE%\\sing-box"],
+    "exe_names": ["sing-box.exe"],
+    "description": "通用代理平台"
+  },
+  {
+    "name": "V2rayA",
+    "github_url": "https://github.com/v2rayA/v2rayA",
+    "download_url": "https://github.com/v2rayA/v2rayA/releases",
+    "latest_version": "2.0.0",
+    "update_date": "2024-01-03",
+    "typical_paths": ["%LOCALAPPDATA%\\v2raya"],
+    "exe_names": ["v2raya.exe", "v2ray.exe"],
+    "description": "V2Ray Web GUI"
+  }
+]
