@@ -34,8 +34,9 @@
                           SelectedItem="{Binding CurrentTheme}"
                           Margin="0,0,8,0"
                           Width="120"/>
-                <Button Content="扫描"
+                <Button Content="{Binding ScanButtonText}"
                         Command="{Binding ScanCommand}"
+                        IsEnabled="{Binding CanScan}"
                         Style="{StaticResource PrimaryButtonStyle}"
                         Margin="0,0,8,0"/>
                 <Button Content="添加"
@@ -48,10 +49,15 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Discovered Software -->
-                <TextBlock Text="已发现的软件" 
+                <TextBlock Text="{Binding DiscoveredCountText}" 
                            FontSize="18" 
                            FontWeight="SemiBold"
                            Foreground="{DynamicResource TextPrimaryBrush}"
+                           Margin="0,0,0,8"/>
+                
+                <TextBlock Text="未在常见路径发现代理软件，可点击右上角「添加」手动添加"
+                           Foreground="{DynamicResource TextSecondaryBrush}"
+                           Visibility="{Binding ShowEmptyScanHint, Converter={StaticResource BoolToVisibilityConverter}}"
                            Margin="0,0,0,8"/>
                 
                 <ItemsControl ItemsSource="{Binding DiscoveredSoftware}">
@@ -123,7 +129,48 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Style="{StaticResource CardStyle}">
-                                <!-- Similar layout to discovered -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Column="0"
+                                            Width="48" Height="48"
+                                            Background="{DynamicResource SurfaceBrush}"
+                                            CornerRadius="4"
+                                            Margin="0,0,12,0">
+                                        <TextBlock Text="➕"
+                                                   FontSize="24"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                        <TextBlock Text="{Binding Description}"
+                                                   FontSize="12"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding ExePath}"
+                                                   FontSize="11"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <CheckBox Content="管理员"
+                                                  IsChecked="{Binding IsAdminRequired}"
+                                                  Margin="0,0,8,0"/>
+                                        <Button Content="启动"
+                                                Command="{Binding LaunchCommand}"
+                                                Style="{StaticResource PrimaryButtonStyle}"/>
+                                    </StackPanel>
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
